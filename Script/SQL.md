@@ -4,7 +4,7 @@
 
 ## Зміст
 - [Створення бази даних і таблиці](#створення_бази_даних_і_таблиці)
-- [Клієнтські метрики](#клієнтські-метрики)
+- [Ключові завдання](#ключові_завдання)
 - [ABC-analysis](#ABC-analysis)
 - [XYZ-analysis](#XYZ-analysis)
 
@@ -16,48 +16,77 @@
 
 CREATE TABLE orders (
     
-    row_id INT,
+    row_id INT
     
-    order_id VARCHAR(20),
+    ,order_id VARCHAR(20)
     
-    order_date DATE,
+    ,order_date DATE
     
-    ship_date DATE,
+    ,ship_date DATE
     
-    ship_mode VARCHAR(50),
+    ,ship_mode VARCHAR(50)
     
-    customer_id VARCHAR(20),
+    ,customer_id VARCHAR(20)
     
-    customer_name VARCHAR(100),
+    ,customer_name VARCHAR(100)
+
+    ,segment VARCHAR(50)
     
-    segment VARCHAR(50),
+    ,country VARCHAR(50)
     
-    country VARCHAR(50),
+    ,city VARCHAR(100)
     
-    city VARCHAR(100),
+    ,state VARCHAR(100)
     
-    state VARCHAR(100),
+    ,postal_code VARCHAR(20)
     
-    postal_code VARCHAR(20),
+    ,region VARCHAR(50)
     
-    region VARCHAR(50),
+    ,product_id VARCHAR(20)
     
-    product_id VARCHAR(20),
+    ,category VARCHAR(50)
     
-    category VARCHAR(50),
+    ,sub_category VARCHAR(50)
     
-    sub_category VARCHAR(50),
+    ,product_name VARCHAR(200)
     
-    product_name VARCHAR(200),
+    ,sales DECIMAL(10,2)
     
-    sales DECIMAL(10,2),
+    ,quantity INT
     
-    quantity INT,
+    ,discount DECIMAL(4,2)
     
-    discount DECIMAL(4,2),
-    
-    profit DECIMAL(10,2));
+    ,profit DECIMAL(10,2));
 
 ## Перевірка таблиці
 
 SELECT * FROM  orders;
+
+## Ключові завдання
+
+1. Загальний обсяг продажів і прибутку:
+
+SELECT 
+	
+     ROUND(SUM(sales), 2) AS total_sales
+    
+    ,ROUND(SUM(profit), 2) AS total_profit
+
+FROM orders;
+
+2. Продажі по роках:
+
+SELECT 
+	
+     YEAR(order_date) AS year
+    
+    ,ROUND(SUM(sales), 2) AS total_sales
+    
+    ,ROUND(SUM(profit), 2) AS total_profit
+
+FROM orders
+
+GROUP BY YEAR(order_date)
+
+ORDER BY 1;
+
